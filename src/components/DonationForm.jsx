@@ -54,7 +54,9 @@ const DonationForm = (props) => {
   const finishButton = () => {
     if (props.donation) {
       return (
-        <Button variant="contained" color="primary" type="submit">
+        <Button variant="contained" color="primary" type="submit"
+        onClick={submitHandler}
+        >
           Edit
         </Button>
       );
