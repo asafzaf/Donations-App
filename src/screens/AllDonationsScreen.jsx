@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Title from "../components/Title";
 import DonationItem from "../components/DonationItem";
+import { PacmanLoader } from "react-spinners";
 
 const AllDonationsScreen = () => {
   const [data, setData] = useState([]);
@@ -19,7 +20,9 @@ const AllDonationsScreen = () => {
       .catch((error) => {
         setData("Error: " + error);
       });
-    setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 200);
   }, []);
 
   return (
@@ -27,10 +30,9 @@ const AllDonationsScreen = () => {
       <Header />
       <NavBar />
       <Title title="All Donations" />
-      <p>{isLoading ? "Loading..." : null}</p>
       <Box className="container">
         {isLoading
-          ? null
+          ? <PacmanLoader color="#2D9596" />
           : data.map((donation) => <DonationItem key={donation._id} donation={donation} />)}
       </Box>
     </div>
