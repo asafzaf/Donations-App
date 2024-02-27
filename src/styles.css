@@ -104,6 +104,24 @@
     justify-content: center;
     align-items: start;
     padding: 10px;
+    margin: 10px;
     background-color: #9AD0C2;
     border-radius: 5px;
-    box-shadow:  2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);}
+    box-shadow:  2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+
+    .sideButtons {
+        position: relative;
+        top: -8%;
+        left: 41%;
+    }
+
+    .iconButton { 
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .iconButton:hover {
+        background-color: #2D9596;
+        border-radius: 5px;
+    }

@@ -5,13 +5,13 @@ import "../styles.css";
 
 const DonationForm = (props) => {
   const [name, setName] = useState(
-    props.donation?.name ? props.donation?.name : ""
+    props.donation.name ? props.donation.name : "1"
   );
   const [email, setEmail] = useState(
-    props.donation?.email ? props.donation?.email : ""
+    props.donation.email ? props.donation.email : "2"
   );
   const [amount, setAmount] = useState(
-    props.donation?.amount ? props.donation?.amount : ""
+    props.donation.amount ? props.donation.amount : "3"
   );
 
   const date = props.donation?.date
