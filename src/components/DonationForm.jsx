@@ -1,18 +1,75 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import "../styles.css";
+import { PacmanLoader } from "react-spinners";
 
 const DonationForm = (props) => {
   const [name, setName] = useState(
-    props.donation.name ? props.donation.name : "1"
+    props.donation?.name ? props.donation.name : ""
   );
   const [email, setEmail] = useState(
-    props.donation.email ? props.donation.email : "2"
+    props.donation?.email ? props.donation.email : ""
   );
   const [amount, setAmount] = useState(
-    props.donation.amount ? props.donation.amount : "3"
+    props.donation ? props.donation.amount : ""
   );
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setName(props.donation?.name ? props.donation.name : "");
+    setEmail(props.donation?.email ? props.donation.email : "");
+    setAmount(props.donation ? props.donation.amount : "");
+    setIsLoading(false);
+  }, [props.donation]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const donation = {
+      name: name,
+      email: email,
+      amount: parseInt(amount),
+    };
+    console.log(donation);
+    setIsLoading(true);
+    props.onSubmit(donation);
+  };
+
+  const backButton = () => {
+    if (props.donation) {
+      return (
+        <Button href={`/${props.donation._id}`} variant="contained">
+          Cancel
+        </Button>
+      );
+    } else
+      return (
+        <Button href="/" variant="contained">
+          Back
+        </Button>
+      );
+  };
+
+  const finishButton = () => {
+    if (props.donation) {
+      return (
+        <Button variant="contained" color="primary" type="submit">
+          Edit
+        </Button>
+      );
+    } else
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={submitHandler}
+        >
+          Create
+        </Button>
+      );
+  };
 
   const date = props.donation?.date
     ? new Date(props.donation?.date)
@@ -20,7 +77,7 @@ const DonationForm = (props) => {
         .slice(0, 16)
         .toString()
     : new Date().toUTCString("en-US").slice(0, 16).toString();
-  return (
+  return (isLoading ? <PacmanLoader color="#2D9596" /> :
     <Grid container spacing={1}>
       <Grid item xs={12} md={6} className="field">
         <p>
@@ -60,8 +117,8 @@ const DonationForm = (props) => {
       </Grid>
       <Grid item xs={12} md={6} className="field">
         <TextField
-          datatype="number"
-          label="Amount"
+          datatype="integer"
+          label=""
           placeholder="1000"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
@@ -73,12 +130,19 @@ const DonationForm = (props) => {
           <b>Date:</b> {date}
         </p>
       </Grid>
+      <Grid item xs={6} className="field">
+        {backButton()}
+      </Grid>
+      <Grid item xs={6} className="field">
+        {finishButton()}
+      </Grid>
     </Grid>
   );
 };
 DonationForm.propTypes = {
   props: PropTypes.object,
   donation: PropTypes.object,
+  onSubmit: PropTypes.func,
 };
 
 export default DonationForm;
