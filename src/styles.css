@@ -38,6 +38,15 @@
     background-color: #2D9596;
 }
 
+.searchBar {
+    width: 200px;
+    border-radius: 5px;
+    color: white;
+    margin: 0 10px;
+    font-size: 18px;
+    border-color: #9AD0C2;
+}
+
 .navItem {
     color: white;
     margin: 0 10px;
@@ -47,6 +56,11 @@
     background-color: #9AD0C2;
     padding: 5px 10px;
     border-radius: 5px;
+    text-decoration: none;
+}
+
+.text {
+    text-decoration: none;
 }
 
 .navItem:hover {
@@ -58,6 +72,28 @@
     flex-wrap: wrap;
     gap: 20px; 
     justify-content: center;  
+}
+
+.item {
+    width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #9AD0C2;
+    border-radius: 5px;
+    box-shadow:  2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+
+.field {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .donationItem {
