@@ -1,11 +1,13 @@
 import "./App.css";
-// import "@fontsource/roboto/400.css";
-import AllDonationsScreen from "./screens/AllDonationsScreen";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./router/router";
 
 function App() {
   return (
     <div className="root">
-      <AllDonationsScreen />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </div>
   );
 }
