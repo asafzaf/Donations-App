@@ -13,4 +13,11 @@ const getDonations = async () => {
 
 };
 
-export {getDonations};
+const getDonationById = async (id) => {
+    const response = await http.get(`/api/donations/items/${id}`);
+    console.log("getbyid: " + id);
+    console.log(response.data.data.donation);
+    return response.data.data.donation;
+}
+
+export {getDonations, getDonationById};
