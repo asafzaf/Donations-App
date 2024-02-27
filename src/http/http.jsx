@@ -29,7 +29,7 @@ const updateDonation = async (id, donation) => {
 
 const deleteDonation = async (id) => {
     const response = await http.delete(`/api/donations/items/${id}`);
-    return response.data.data.donation;
+    return response.data;
 }
 
 export {getDonations, getDonationById, createDonation, updateDonation, deleteDonation};
