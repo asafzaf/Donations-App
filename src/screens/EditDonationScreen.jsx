@@ -7,21 +7,34 @@ import "../styles.css";
 import DonationForm from "../components/DonationForm";
 import { getDonationById } from "../http/http";
 import { useParams } from "react-router-dom";
+import { updateDonation } from "../http/http";
+import { PacmanLoader } from "react-spinners";
 
 const EditDonationScreen = () => {
-    const [donation, setDonation] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
+  const [donation, setDonation] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
-    const { id } = useParams();
+  const editHandler = (donation) => {
+    setIsLoading(true);
+    updateDonation(id, donation)
+      .then((response) => {
+        const path = `/${response._id}`;
+        setTimeout(() => {
+          window.location.href = path;
+        }, 3000);
+      })
+      .catch((error) => console.log(error));
+  };
 
-    useEffect(() => {
-        getDonationById(id)
-            .then((response) => setDonation(response))
-            .catch((error) => console.log(error));
-        setIsLoading(false);
-    }, [id]);
+  const { id } = useParams();
 
-  
+  useEffect(() => {
+    getDonationById(id)
+      .then((response) => setDonation(response))
+      .catch((error) => console.log(error));
+    setIsLoading(false);
+  }, [id]);
+
   return (
     <div>
       <Header />
@@ -29,7 +42,7 @@ const EditDonationScreen = () => {
       <Title title="Edit Donation" />
       <Box className="container">
         <Box className="item">
-            {isLoading ? "Loading..." : <DonationForm donation={donation} />}
+          {isLoading ? <PacmanLoader color="#2D9596" /> : <DonationForm donation={donation} onSubmit={editHandler}/>}
         </Box>
       </Box>
     </div>
