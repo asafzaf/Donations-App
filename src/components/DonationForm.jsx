@@ -15,6 +15,10 @@ const DonationForm = (props) => {
     props.donation ? props.donation.amount : ""
   );
 
+  const [nameIsInvalid, setNameIsInvalid] = useState(false);
+  const [emailIsInvalid, setEmailIsInvalid] = useState(false);
+  const [amountIsInvalid, setAmountIsInvalid] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -26,6 +30,7 @@ const DonationForm = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (!formValidation()) return;
     const donation = {
       name: name,
       email: email,
@@ -34,6 +39,29 @@ const DonationForm = (props) => {
     console.log(donation);
     setIsLoading(true);
     props.onSubmit(donation);
+  };
+
+  const formValidation = () => {
+    let valid = true;
+    if (name === "") {
+      setNameIsInvalid(true);
+      valid = false;
+    } else {
+      setNameIsInvalid(false);
+    }
+    if (email === "") {
+      valid = false;
+      setEmailIsInvalid(true);
+    } else {
+      setEmailIsInvalid(false);
+    }
+    if (amount === ""|| isNaN(amount)|| amount <= 0){
+      valid = false;
+      setAmountIsInvalid(true);
+    } else {
+      setAmountIsInvalid(false);
+    }
+    return valid;
   };
 
   const backButton = () => {
@@ -54,8 +82,11 @@ const DonationForm = (props) => {
   const finishButton = () => {
     if (props.donation) {
       return (
-        <Button variant="contained" color="primary" type="submit"
-        onClick={submitHandler}
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={submitHandler}
         >
           Edit
         </Button>
@@ -79,7 +110,9 @@ const DonationForm = (props) => {
         .slice(0, 16)
         .toString()
     : new Date().toUTCString("en-US").slice(0, 16).toString();
-  return (isLoading ? <PacmanLoader color="#2D9596" /> :
+  return isLoading ? (
+    <PacmanLoader color="#2D9596" />
+  ) : (
     <Grid container spacing={1}>
       <Grid item xs={12} md={6} className="field">
         <p>
@@ -93,6 +126,7 @@ const DonationForm = (props) => {
           label="Donors Name"
           placeholder="John Doe"
           value={name}
+          error={nameIsInvalid}
           onChange={(e) => setName(e.target.value)}
           required
         ></TextField>
@@ -108,6 +142,7 @@ const DonationForm = (props) => {
           label="E-mail"
           placeholder="John@Doe.com"
           value={email}
+          error={emailIsInvalid}
           onChange={(e) => setEmail(e.target.value)}
           required
         ></TextField>
@@ -123,6 +158,7 @@ const DonationForm = (props) => {
           label=""
           placeholder="1000"
           value={amount}
+          error={amountIsInvalid}
           onChange={(e) => setAmount(e.target.value)}
           required
         ></TextField>
