@@ -22,7 +22,7 @@ const AllDonationsScreen = () => {
       });
       setTimeout(() => {
         setIsLoading(false);
-      }, 200);
+      }, 500);
   }, []);
 
   return (
