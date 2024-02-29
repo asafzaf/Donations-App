@@ -13,6 +13,8 @@ import { PacmanLoader } from "react-spinners";
 const EditDonationScreen = () => {
   const [donation, setDonation] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({});
 
   const editHandler = (donation) => {
     setIsLoading(true);
@@ -31,7 +33,14 @@ const EditDonationScreen = () => {
   useEffect(() => {
     getDonationById(id)
       .then((response) => setDonation(response))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setErrorMessage({
+          title: error.response.data.name,
+          description: error.response.data.message,
+        });
+        setError(true);
+        setIsLoading(false);
+      });
     setIsLoading(false);
   }, [id]);
 
@@ -42,7 +51,16 @@ const EditDonationScreen = () => {
       <Title title="Edit Donation" />
       <Box className="container">
         <Box className="item">
-          {isLoading ? <PacmanLoader color="#2D9596" /> : <DonationForm donation={donation} onSubmit={editHandler}/>}
+          {isLoading && <PacmanLoader color="#2D9596" />}
+          {!isLoading && !error && (
+            <DonationForm donation={donation} onSubmit={editHandler} />
+          )}
+          {!isLoading && error && (
+            <Box className="item">
+              <h2>{errorMessage.title}</h2>
+              <p>{errorMessage.description}</p>
+            </Box>
+          )}
         </Box>
       </Box>
     </div>
