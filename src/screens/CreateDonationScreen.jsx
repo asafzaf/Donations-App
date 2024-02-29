@@ -12,7 +12,7 @@ const CreateDonationScreen = () => {
     createDonation(donation)
       .then((response) => {
         console.log(response);
-        const path = `/${response._id}`;
+        const path = `/donation/${response._id}`;
         setTimeout(() => {
           window.location.href = path;
         }, 3000);

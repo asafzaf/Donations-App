@@ -18,7 +18,7 @@ const EditDonationScreen = () => {
     setIsLoading(true);
     updateDonation(id, donation)
       .then((response) => {
-        const path = `/${response._id}`;
+        const path = `/donation/${response._id}`;
         setTimeout(() => {
           window.location.href = path;
         }, 3000);

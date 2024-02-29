@@ -67,7 +67,7 @@ const DonationForm = (props) => {
   const backButton = () => {
     if (props.donation) {
       return (
-        <Button href={`/${props.donation._id}`} variant="contained">
+        <Button href={`/donation/${props.donation._id}`} variant="contained">
           Cancel
         </Button>
       );
