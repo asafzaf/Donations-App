@@ -10,6 +10,8 @@ import { PacmanLoader } from "react-spinners";
 const AllDonationsScreen = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({});
 
   useEffect(() => {
     setIsLoading(true);
@@ -18,11 +20,13 @@ const AllDonationsScreen = () => {
         setData(response);
       })
       .catch((error) => {
-        setData("Error: " + error);
-      });
-      setTimeout(() => {
+        setErrorMessage("Error: " + error);
+        setError(true);
         setIsLoading(false);
-      }, 500);
+      });
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }, []);
 
   return (
@@ -31,9 +35,13 @@ const AllDonationsScreen = () => {
       <NavBar />
       <Title title="All Donations" />
       <Box className="container">
-        {isLoading
-          ? <PacmanLoader color="#2D9596" />
-          : data.map((donation) => <DonationItem key={donation._id} donation={donation} />)}
+        {isLoading && <PacmanLoader color="#2D9596" />}
+        {!isLoading &&
+          !error &&
+          data.map((donation) => (
+            <DonationItem key={donation._id} donation={donation} />
+          ))}
+        {!isLoading && error && <Box className="item">{errorMessage}</Box>}
       </Box>
     </div>
   );
