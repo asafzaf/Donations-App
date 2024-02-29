@@ -36,7 +36,6 @@ const DonationForm = (props) => {
       email: email,
       amount: parseInt(amount),
     };
-    console.log(donation);
     setIsLoading(true);
     props.onSubmit(donation);
   };
@@ -55,7 +54,7 @@ const DonationForm = (props) => {
     } else {
       setEmailIsInvalid(false);
     }
-    if (amount === ""|| isNaN(amount)|| amount <= 0){
+    if (amount === "" || isNaN(amount) || amount <= 0) {
       valid = false;
       setAmountIsInvalid(true);
     } else {

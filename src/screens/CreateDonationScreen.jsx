@@ -7,18 +7,16 @@ import DonationForm from "../components/DonationForm";
 import { createDonation } from "../http/http";
 
 const CreateDonationScreen = () => {
-
   const submitHandler = (donation) => {
     createDonation(donation)
       .then((response) => {
-        console.log(response);
         const path = `/donation/${response._id}`;
         setTimeout(() => {
           window.location.href = path;
         }, 3000);
       })
       .catch((error) => console.log(error));
-  }
+  };
 
   return (
     <div>

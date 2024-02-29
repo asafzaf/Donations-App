@@ -32,7 +32,12 @@ const NavBar = () => {
           onChange={(e) => setSearchString(e.target.value)}
         />
       </Box>
-      <NavLink content="button" to={`/${serachString}`}  state={{ id: serachString }} style={{ textDecoration: "none" }}>
+      <NavLink
+        content="button"
+        to={`/${serachString}`}
+        state={{ id: serachString }}
+        style={{ textDecoration: "none" }}
+      >
         <Box className="navItem">Search</Box>
       </NavLink>
     </Box>

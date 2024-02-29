@@ -25,10 +25,10 @@ const DonationItemScreen = () => {
         setItem(response);
       })
       .catch((error) => {
-        console.log(error);
-        console.log(error.response.data.name);
-        console.log(error.response.data.message);
-        setErrorMessage({ title: error.response.data.name, description: error.response.data.message });
+        setErrorMessage({
+          title: error.response.data.name,
+          description: error.response.data.message,
+        });
         setError(true);
       });
     setIsLoading(false);

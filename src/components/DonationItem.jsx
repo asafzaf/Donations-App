@@ -8,7 +8,10 @@ const DonationItem = ({ donation }) => {
     .slice(0, 16)
     .toString();
   return (
-    <NavLink to={`/donation/${donation._id}`} style={{ textDecoration: "none", color:'black' }}>
+    <NavLink
+      to={`/donation/${donation._id}`}
+      style={{ textDecoration: "none", color: "black" }}
+    >
       <Box className="donationItem">
         <p>
           <b>Donors name:</b> {donation.name}
