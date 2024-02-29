@@ -25,7 +25,14 @@ const EditDonationScreen = () => {
           window.location.href = path;
         }, 3000);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setErrorMessage({
+          title: error.response.data.name,
+          description: error.response.data.message,
+        });
+        setError(true);
+        setIsLoading(false);
+      });
   };
 
   const { id } = useParams();
