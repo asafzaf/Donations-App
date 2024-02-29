@@ -48,7 +48,10 @@ const DonationItemScreen = () => {
       <Title title="Search Results" />
       <Box className="container">
         {isLoading ? (
-          <PacmanLoader color="#2D9596" />
+          <Box className="item">
+
+            <PacmanLoader color="#2D9596" />
+          </Box>
         ) : (
           <Box className="item">
             <Box className="sideButtons">
