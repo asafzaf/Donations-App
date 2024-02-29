@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDonationById } from "../http/http";
 import { NavLink, useParams } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Header from "../components/Header";
 import NavBar from "../components/NavBar";
 import Title from "../components/Title";
@@ -14,6 +14,8 @@ import { PacmanLoader } from "react-spinners";
 const DonationItemScreen = () => {
   const [item, setItem] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({});
 
   const { id } = useParams();
 
@@ -23,14 +25,17 @@ const DonationItemScreen = () => {
         setItem(response);
       })
       .catch((error) => {
-        setItem({ title: "Error: " + error, description: "User not found" });
+        console.log(error);
+        console.log(error.response.data.name);
+        console.log(error.response.data.message);
+        setErrorMessage({ title: error.response.data.name, description: error.response.data.message });
+        setError(true);
       });
     setIsLoading(false);
   }, [id]);
 
   const deleteHandler = () => {
     setIsLoading(true);
-    console.log("Delete");
     deleteDonation(id)
       .then(() => {
         const path = "/";
@@ -38,7 +43,7 @@ const DonationItemScreen = () => {
           window.location.href = path;
         });
       }, 3000)
-      .catch((error) => console.log(error));
+      .catch((error) => setError(error));
   };
 
   return (
@@ -47,12 +52,12 @@ const DonationItemScreen = () => {
       <NavBar />
       <Title title="Search Results" />
       <Box className="container">
-        {isLoading ? (
+        {isLoading && (
           <Box className="item">
-
             <PacmanLoader color="#2D9596" />
           </Box>
-        ) : (
+        )}
+        {!isLoading && !error && (
           <Box className="item">
             <Box className="sideButtons">
               <NavLink
@@ -77,6 +82,15 @@ const DonationItemScreen = () => {
               <b>Date:</b>{" "}
               {new Date(item.date).toUTCString("en-US").slice(0, 16).toString()}
             </p>
+          </Box>
+        )}
+        {!isLoading && error && (
+          <Box className="item">
+            <h3>{errorMessage.title}</h3>
+            <p>{errorMessage.description}</p>
+            <NavLink to="/" style={{ textDecoration: "none", color: "black" }}>
+              <Button>Go back to home</Button>
+            </NavLink>
           </Box>
         )}
       </Box>
