@@ -1,18 +1,8 @@
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import Routes from "./router/router";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#2D9596",
-    },
-    secondary: {
-      main: "#E9C46A",
-    },
-  },
-});
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./Theme";
 
 function App() {
   return (
